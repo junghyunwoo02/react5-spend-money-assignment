@@ -33,9 +33,6 @@ const Home = ({ expenseData, setExpenseData }) => {
       <BoxContainer activeIndex={activeIndex} handleClick={handleClick} />
       {/* 지출 내역을 보여주는 컴포넌트들입니다. */}
       <ExpenseDetail filteredData={filteredData} />
-      <Link to={`/detail/1`}>
-        <span>Go to : 상세페이지</span>
-      </Link>
     </StyledMain>
   );
 };
