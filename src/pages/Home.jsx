@@ -3,7 +3,7 @@ import InputForm from "../components/InputForm";
 import BoxContainer from "../components/BoxContainer";
 import styled from "styled-components";
 import ExpenseDetail from "../components/ExpenseDetail";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = ({ expenseData, setExpenseData }) => {
   const [activeIndex, setActiveIndex] = useState(() => {
@@ -24,12 +24,18 @@ const Home = ({ expenseData, setExpenseData }) => {
     const itemMonth = new Date(item.date).getMonth() + 1; // 월은 0부터 시작하므로 +1
     return itemMonth === activeIndex;
   });
+
   return (
     <StyledMain>
+      {/* 지출 항목을 입력받는 폼입니다. */}
       <InputForm expenseData={expenseData} setExpenseData={setExpenseData} />
+      {/* 월별 필터링을 위한 박스 컨테이너와 개별 박스입니다. */}
       <BoxContainer activeIndex={activeIndex} handleClick={handleClick} />
+      {/* 지출 내역을 보여주는 컴포넌트들입니다. */}
       <ExpenseDetail filteredData={filteredData} />
-      <Link to={"/detail"}>Detail 페이지로 이동</Link>
+      <Link to={`/detail/1`}>
+        <span>Go to : 상세페이지</span>
+      </Link>
     </StyledMain>
   );
 };

@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const ExpenseCard = ({ data }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/detail/${data.id}`);
+  };
+
   return (
-    <Card>
+    <Card onClick={handleCardClick}>
       <SpanDiv>
         <span>{data.date}</span>
         <span>
