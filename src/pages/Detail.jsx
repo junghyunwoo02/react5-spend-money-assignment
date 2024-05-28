@@ -1,10 +1,12 @@
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { deleteExpense, updateExpense } from "../redux/slices/expenseSlice";
 
 const Detail = () => {
-  const { expenseData, setExpenseData } = useContext(ExpenseContext);
+  const expenseData = useSelector((state) => state.expense);
+  const dispatch = useDispatch();
 
   // useRef를 사용하여 각 입력 필드의 참조를 생성
   const dateRef = useRef(null);
@@ -54,23 +56,16 @@ const Detail = () => {
 
     // 기존 expenseData에서 수정된 항목을 업데이트
     const updatedExpenseData = expenseData.map((item) =>
-      item.id === id ? updatedExpense : item
+      item.id === id ? { ...updatedExpense } : item
     );
 
-    // 업데이트된 expenseData를 상태로 설정
-    setExpenseData(updatedExpenseData);
-    // 수정 후에는 메인 페이지로 이동
+    dispatch(updateExpense(updatedExpenseData));
     navigate("/");
   };
 
   const handleDelete = () => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
-      // 현재 id와 일치하지 않는 항목만 필터링하여 새로운 데이터를 생성
-      const updatedExpenseData = expenseData.filter((item) => item.id !== id);
-      // 삭제된 데이터를 상태로 설정
-      setExpenseData(updatedExpenseData);
-
-      // 삭제 후에는 메인 페이지로 이동
+      dispatch(deleteExpense(id));
       navigate("/");
     }
   };

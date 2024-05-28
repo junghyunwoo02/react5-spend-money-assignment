@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InputForm from "../components/InputForm";
 import BoxContainer from "../components/BoxContainer";
 import styled from "styled-components";
 import ExpenseDetail from "../components/ExpenseDetail";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const { expenseData } = useContext(ExpenseContext);
-
+  const expenseData = useSelector((state) => state.expense);
   const [activeIndex, setActiveIndex] = useState(() => {
     const savedMonth = localStorage.getItem("month");
     return savedMonth ? parseInt(savedMonth) : 1; // 기본값은 1월로 설정

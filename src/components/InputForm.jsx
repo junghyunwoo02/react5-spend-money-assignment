@@ -1,10 +1,12 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useDispatch } from "react-redux";
+import { addExpense } from "../redux/slices/expenseSlice";
 
 const InputForm = () => {
-  const { expenseData, setExpenseData } = useContext(ExpenseContext);
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     date: "",
     item: "",
@@ -43,7 +45,7 @@ const InputForm = () => {
       amount: formData.amount,
     };
 
-    setExpenseData([...expenseData, newData]);
+    dispatch(addExpense(newData));
     setFormData({
       date: "",
       item: "",
