@@ -18,7 +18,7 @@ const Detail = ({ expenseData, setExpenseData }) => {
       // expense 데이터를 사용하여 입력 필드의 초기 값을 설정
       dateRef.current.value = expense.date || "";
       itemRef.current.value = expense.item || "";
-      amountRef.current.value = expense.amount || "";
+      amountRef.current.value = Number(expense.amount) || "";
       descriptionRef.current.value = expense.description || "";
     }
 
@@ -85,7 +85,7 @@ const Detail = ({ expenseData, setExpenseData }) => {
       <StDiv>
         <StLabel htmlFor="amount">금액</StLabel>
         <StInput
-          type="text"
+          type="number"
           id="amount"
           placeholder="지출 금액"
           ref={amountRef}

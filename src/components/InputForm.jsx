@@ -33,14 +33,12 @@ const InputForm = ({ expenseData, setExpenseData }) => {
       return;
     }
 
-    const formattedAmount = Number(formData.amount).toLocaleString();
-
     const newData = {
       id: uuid(),
       date: formData.date,
       item: formData.item,
       description: formData.description,
-      amount: formattedAmount,
+      amount: formData.amount,
     };
 
     setExpenseData([...expenseData, newData]);
