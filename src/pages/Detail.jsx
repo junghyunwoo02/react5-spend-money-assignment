@@ -1,8 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { ExpenseContext } from "../context/ExpenseContext";
 
-const Detail = ({ expenseData, setExpenseData }) => {
+const Detail = () => {
+  const { expenseData, setExpenseData } = useContext(ExpenseContext);
+
   // useRef를 사용하여 각 입력 필드의 참조를 생성
   const dateRef = useRef(null);
   const itemRef = useRef(null);
@@ -18,7 +21,7 @@ const Detail = ({ expenseData, setExpenseData }) => {
       // expense 데이터를 사용하여 입력 필드의 초기 값을 설정
       dateRef.current.value = expense.date || "";
       itemRef.current.value = expense.item || "";
-      amountRef.current.value = expense.amount || "";
+      amountRef.current.value = Number(expense.amount) || "";
       descriptionRef.current.value = expense.description || "";
     }
 
@@ -85,7 +88,7 @@ const Detail = ({ expenseData, setExpenseData }) => {
       <StDiv>
         <StLabel htmlFor="amount">금액</StLabel>
         <StInput
-          type="text"
+          type="number"
           id="amount"
           placeholder="지출 금액"
           ref={amountRef}

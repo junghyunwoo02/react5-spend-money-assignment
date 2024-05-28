@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GlobalStyle from "./GlobalStyle";
 import Router from "./shared/Router";
 import fakeData from "./fakeData.json";
+import { ExpenseContext } from "./context/ExpenseContext";
 
 const App = () => {
   const [expenseData, setExpenseData] = useState(() => {
@@ -14,10 +15,17 @@ const App = () => {
   }, [expenseData]); // expenseData가 변경될 때마다 로컬 스토리지에 저장
 
   return (
-    <div>
-      <GlobalStyle />
-      <Router expenseData={expenseData} setExpenseData={setExpenseData} />
-    </div>
+    <ExpenseContext.Provider
+      value={{
+        expenseData,
+        setExpenseData,
+      }}
+    >
+      <div>
+        <GlobalStyle />
+        <Router />
+      </div>
+    </ExpenseContext.Provider>
   );
 };
 

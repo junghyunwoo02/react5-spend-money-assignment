@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
+import { ExpenseContext } from "../context/ExpenseContext";
 
-const InputForm = ({ expenseData, setExpenseData }) => {
+const InputForm = () => {
+  const { expenseData, setExpenseData } = useContext(ExpenseContext);
   const [formData, setFormData] = useState({
     date: "",
     item: "",
@@ -33,14 +35,12 @@ const InputForm = ({ expenseData, setExpenseData }) => {
       return;
     }
 
-    const formattedAmount = Number(formData.amount).toLocaleString();
-
     const newData = {
       id: uuid(),
       date: formData.date,
       item: formData.item,
       description: formData.description,
-      amount: formattedAmount,
+      amount: formData.amount,
     };
 
     setExpenseData([...expenseData, newData]);

@@ -16,7 +16,7 @@ const ExpenseCard = ({ data }) => {
           {data.item} - {data.description}
         </span>
       </SpanDiv>
-      <WonSpan>{data.amount.toLocaleString("ko-KR")}원</WonSpan>
+      <WonSpan>{Number(data.amount).toLocaleString("ko-KR")}원</WonSpan>
     </Card>
   );
 };
