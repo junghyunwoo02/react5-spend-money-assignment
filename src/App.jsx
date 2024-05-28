@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import GlobalStyle from "./GlobalStyle";
+import Router from "./shared/Router";
+import fakeData from "./fakeData.json";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [expenseData, setExpenseData] = useState(() => {
+    const savedData = localStorage.getItem("expenseData");
+    return savedData ? JSON.parse(savedData) : fakeData;
+  }); // expenseData를 로컬 스토리지에서 가져오거나 기본값으로 fakeData를 사용하여 초기화하고, 상태가 변경될 때마다 로컬 스토리지에 저장
+
+  useEffect(() => {
+    localStorage.setItem("expenseData", JSON.stringify(expenseData));
+  }, [expenseData]); // expenseData가 변경될 때마다 로컬 스토리지에 저장
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <GlobalStyle />
+      <Router expenseData={expenseData} setExpenseData={setExpenseData} />
+    </div>
+  );
+};
 
-export default App
+export default App;
