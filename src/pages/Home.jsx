@@ -3,7 +3,6 @@ import InputForm from "../components/InputForm";
 import BoxContainer from "../components/BoxContainer";
 import styled from "styled-components";
 import ExpenseDetail from "../components/ExpenseDetail";
-import { Link, useNavigate } from "react-router-dom";
 
 const Home = ({ expenseData, setExpenseData }) => {
   const [activeIndex, setActiveIndex] = useState(() => {
