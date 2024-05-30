@@ -18,13 +18,20 @@ const expenseSlice = createSlice({
     },
     // 지출 데이터 수정
     updateExpense: (state, action) => {
-      return action.payload;
+      const updatedState = action.payload;
+      if (Array.isArray(updatedState)) {
+        localStorage.setItem("expenseData", JSON.stringify(updatedState));
+        return updatedState;
+      } else {
+        // payload가 유효하지 않으면, 현재 상태를 그대로 반환
+        return state;
+      }
     },
     // 지출 데이터 삭제
     deleteExpense: (state, action) => {
-      const updatedState = state.filter((item) => item.id !== action.payload);
-      localStorage.setItem("expenseData", JSON.stringify(updatedState));
-      return updatedState;
+      const removeState = state.filter((item) => item.id !== action.payload);
+      localStorage.setItem("expenseData", JSON.stringify(removeState));
+      return removeState;
     },
   },
 });
